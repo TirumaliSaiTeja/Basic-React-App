@@ -12,7 +12,9 @@ class App extends Component {
 
   componentWillMount() {
     axios("https://api.randomuser.me/?nat=US&results=5").then(response =>
-      console.log(response)
+      this.setState({
+        users: response.data.results
+      })
     );
   }
 

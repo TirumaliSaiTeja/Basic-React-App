@@ -12,18 +12,29 @@ class App extends Component {
       users: [],
       loading: false
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillMount() {
+  getUsers() {
     this.setState({
       loading: true
     });
     axios("https://api.randomuser.me/?nat=US&results=5").then(response =>
       this.setState({
-        users: response.data.results,
+        users: [...this.state.users, ...response.data.results],
         loading: false
       })
     );
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.getUsers();
+    console.log("more users loaded");
+  }
+
+  componentWillMount() {
+    this.getUsers();
   }
 
   render() {
@@ -36,6 +47,10 @@ class App extends Component {
               <h2>{user.cell}</h2>
               <h3>{user.email}</h3>
               <hr />
+
+              <form onSubmit={this.handleSubmit}>
+                <input type="submit" value="load users" />
+              </form>
             </div>
           ))
         ) : (

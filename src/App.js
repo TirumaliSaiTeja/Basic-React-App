@@ -40,17 +40,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <form onSubmit={this.handleSubmit}>
+          <input type="submit" value="load users" />
+        </form>
         {!this.state.loading ? (
           this.state.users.map(user => (
             <div>
-              <h1>{user.name.first}</h1>
+              <h1 style={{ color: "orange" }}>{user.name.first}</h1>
               <h2>{user.cell}</h2>
               <h3>{user.email}</h3>
               <hr />
-
-              <form onSubmit={this.handleSubmit}>
-                <input type="submit" value="load users" />
-              </form>
             </div>
           ))
         ) : (

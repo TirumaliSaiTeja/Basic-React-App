@@ -19,7 +19,18 @@ class App extends Component {
   }
 
   render() {
-    return <div className="App">Welcome to react</div>;
+    return (
+      <div className="App">
+        {this.state.users.map(user => (
+          <div>
+            <h1>{user.name.first}</h1>
+            <h2>{user.cell}</h2>
+            <h3>{user.email}</h3>
+            <hr />
+          </div>
+        ))}
+      </div>
+    );
   }
 }
 

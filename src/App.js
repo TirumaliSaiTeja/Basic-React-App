@@ -6,14 +6,19 @@ class App extends Component {
     super(props);
     //state
     this.state = {
-      users: []
+      users: [],
+      loading: false
     };
   }
 
   componentWillMount() {
+    this.setState({
+      loading: true
+    });
     axios("https://api.randomuser.me/?nat=US&results=5").then(response =>
       this.setState({
-        users: response.data.results
+        users: response.data.results,
+        loading: false
       })
     );
   }
@@ -21,14 +26,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.users.map(user => (
-          <div>
-            <h1>{user.name.first}</h1>
-            <h2>{user.cell}</h2>
-            <h3>{user.email}</h3>
-            <hr />
-          </div>
-        ))}
+        {!this.state.loading
+          ? this.state.users.map(user => (
+              <div>
+                <h1>{user.name.first}</h1>
+                <h2>{user.cell}</h2>
+                <h3>{user.email}</h3>
+                <hr />
+              </div>
+            ))
+          : "Loading"}
       </div>
     );
   }
